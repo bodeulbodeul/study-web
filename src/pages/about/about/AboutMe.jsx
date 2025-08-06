@@ -6,7 +6,7 @@ const items = [
     {
         key: '1',
         label: 'Name',
-        children: 'SY',
+        children: '윤서영',
     },
     {
         key: '2',
