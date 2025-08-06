@@ -1,0 +1,32 @@
+[
+  {
+    "category": "Front-End",
+    "color": "#3B82F6",
+    "skills": ["JavaScript", "React", "Vite", "React Router", "JSP"]
+  },
+  {
+    "category": "Back-End",
+    "color": "#10B981",
+    "skills": ["Java", "Spring Boot", "Spring Security", "Spring Batch", "JPA", "Node.js", "Express.js"]
+  },
+  {
+    "category": "Database",
+    "color": "#F59E0B",
+    "skills": ["Oracle", "PostgreSQL"]
+  },
+  {
+    "category": "Version Control / Collaboration",
+    "color": "#6366F1",
+    "skills": ["Git", "SVN"]
+  },
+  {
+    "category": "Infra / DevOps",
+    "color": "#8B5CF6",
+    "skills": ["Linux", "Jenkins", "Nginx"]
+  },
+  {
+    "category": "Tools",
+    "color": "#6B7280",
+    "skills": ["Postman", "IntelliJ", "VSCode"]
+  }
+]

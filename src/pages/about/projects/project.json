@@ -1,0 +1,69 @@
+[
+  {
+    "key": "1",
+    "name": "차세대 관리자 포털 리뉴얼",
+    "period": "2024.10 ~ 2025.02",
+    "techStack": ["React", "Vite", "Tailwind CSS", "React Router"],
+    "role": "프론트엔드 전담 (SPA 구조 설계 및 공통 컴포넌트 개발)",
+    "features": "라우팅 개편, 다크모드, 반응형 레이아웃 적용, UI 일관성 개선",
+    "links": {
+      "github": "",
+      "demo": "",
+      "deploy": ""
+    }
+  },
+  {
+    "key": "2",
+    "name": "사내 배포 자동화 도구 구축",
+    "period": "2024.09 ~ 2024.12",
+    "techStack": ["Node.js", "Jenkins", "Linux", "Shell Script"],
+    "role": "배포 스크립트 작성 및 Jenkins 연동",
+    "features": "서비스별 자동 빌드/배포 설정, 슬랙 알림 연동, 재시작 자동화",
+    "links": {}
+  },
+  {
+    "key": "3",
+    "name": "데이터 정산 처리 Spring Batch 전환",
+    "period": "2024.01 ~ 2024.08",
+    "techStack": ["Java", "Spring Batch", "PostgreSQL", "SVN"],
+    "role": "백엔드 담당 (정산 로직 구현 및 오류 로깅 개선)",
+    "features": "정산 배치 처리시간 30% 단축, 월 오류율 70% 감소",
+    "links": {}
+  },
+  {
+    "key": "4",
+    "name": "OAuth2 기반 로그인 시스템 구축",
+    "period": "2023.09 ~ 2023.12",
+    "techStack": ["Java", "Spring Security", "JWT", "OAuth2", "PostgreSQL"],
+    "role": "인증/인가 설계 및 도입",
+    "features": "Google, Kakao 로그인 연동, JWT 토큰 기반 인증 도입",
+    "links": {}
+  },
+  {
+    "key": "5",
+    "name": "사내 공지 및 알림 모듈 개발",
+    "period": "2023.06 ~ 2023.08",
+    "techStack": ["Java", "Spring Boot", "JPA", "Oracle", "Thymeleaf"],
+    "role": "백엔드 및 템플릿 구성 담당",
+    "features": "관리자 공지 등록, 알림 팝업 자동 노출, 조회 통계 제공",
+    "links": {}
+  },
+  {
+    "key": "6",
+    "name": "고객사 맞춤형 ERP 기능 커스터마이징",
+    "period": "2021.01 ~ 2022.05",
+    "techStack": ["JSP", "Spring", "Oracle", "JavaScript", "SVN"],
+    "role": "고객 대응 및 프론트/백 통합 개발",
+    "features": "매출관리/재고관리 화면 커스터마이징, 고객 요구기능 실시간 반영",
+    "links": {}
+  },
+  {
+    "key": "7",
+    "name": "전자결재 시스템 개편",
+    "period": "2019.06 ~ 2020.11",
+    "techStack": ["JSP", "Spring MVC", "Oracle"],
+    "role": "전자결재 플로우 리팩토링 및 유지보수",
+    "features": "결재 단계 구조화, 부서별 권한 설정, 첨부파일 관리 기능 개선",
+    "links": {}
+  }
+]
