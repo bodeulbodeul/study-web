@@ -8,7 +8,9 @@ import Todo from "./pages/todo/Todo.jsx";
 
 function App() {
   return (
-    <Layout style={{ minHeight: "100vh", minWidth: "100vw", maxWidth: "100vw" }}>
+    <Layout
+      style={{ minHeight: "100vh", minWidth: "100vw", maxWidth: "100vw" }}
+    >
       <Header style={{ padding: 0 }}>
         <Menu theme="dark" mode="horizontal">
           <Menu.Item key="home">

@@ -7,7 +7,15 @@
   {
     "category": "Back-End",
     "color": "#10B981",
-    "skills": ["Java", "Spring Boot", "Spring Security", "Spring Batch", "JPA", "Node.js", "Express.js"]
+    "skills": [
+      "Java",
+      "Spring Boot",
+      "Spring Security",
+      "Spring Batch",
+      "JPA",
+      "Node.js",
+      "Express.js"
+    ]
   },
   {
     "category": "Database",
