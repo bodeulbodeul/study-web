@@ -19,9 +19,9 @@ function App() {
           <Menu.Item key="about">
             <Link to="/about">소개</Link>
           </Menu.Item>
-          <Menu.Item key="work">
+          {/* <Menu.Item key="work">
             <Link to="/work">작업화면</Link>
-          </Menu.Item>
+          </Menu.Item> */}
           <Menu.Item key="todo">
             <Link to="/todo">Todo</Link>
           </Menu.Item>
@@ -31,7 +31,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
-          <Route path="/work" element={<Work />} />
+          {/* <Route path="/work" element={<Work />} /> */}
           <Route path="/todo" element={<Todo />} />
         </Routes>
       </Content>
