@@ -4,6 +4,7 @@ import { Link, Route, Routes } from "react-router-dom";
 import Home from "./pages/Home.jsx";
 import About from "./pages/about/About.jsx";
 import Work from "./pages/work/Work.jsx";
+import Todo from "./pages/todo/Todo.jsx";
 
 function App() {
   return (
@@ -16,19 +17,23 @@ function App() {
           <Menu.Item key="about">
             <Link to="/about">소개</Link>
           </Menu.Item>
-          {/* <Menu.Item key="work">
+          <Menu.Item key="work">
             <Link to="/work">작업화면</Link>
-          </Menu.Item> */}
+          </Menu.Item>
+          <Menu.Item key="todo">
+            <Link to="/todo">Todo</Link>
+          </Menu.Item>
         </Menu>
       </Header>
       <Content style={{ padding: "1rem" }}>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
-          {/* <Route path="/work" element={<Work />} /> */}
+          <Route path="/work" element={<Work />} />
+          <Route path="/todo" element={<Todo />} />
         </Routes>
       </Content>
-      <Footer>푸터</Footer>
+      <Footer></Footer>
     </Layout>
   );
 }
