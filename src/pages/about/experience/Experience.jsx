@@ -1,6 +1,5 @@
 import { Timeline } from "antd";
 import ExperienceItem from "./ExperienceItem";
-import { Statistic } from "antd";
 
 const experienceData = [
   {

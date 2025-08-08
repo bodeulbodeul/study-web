@@ -1,21 +1,24 @@
-import { Tag, Typography } from "antd";
+import { Col, Row, Space, Tag, Typography } from "antd";
 import skillData from "./skills.json";
 const { Text } = Typography;
-import styles from "./skills.module.css";
 
 export default function Skills() {
   return (
-    <>
+    <Space direction="vertical" size="middle" style={{ display: "flex" }}>
       {skillData.map(({ category, color, skills }) => (
-        <div key={category} className={styles.category}>
-          <Text className={styles.label}>{category}</Text>
-          {skills.map((skill) => (
-            <Tag key={skill} bordered={false} color={color}>
-              {skill}
-            </Tag>
-          ))}
-        </div>
+        <Row>
+          <Col span={2}>
+            <Text>{category}</Text>
+          </Col>
+          <Col>
+            {skills.map((skill) => (
+              <Tag key={skill} bordered={false} color={color}>
+                {skill}
+              </Tag>
+            ))}
+          </Col>
+        </Row>
       ))}
-    </>
+    </Space>
   );
 }

@@ -6,7 +6,7 @@ const items = [
   {
     key: "1",
     label: "Name",
-    children: "윤서영",
+    children: "Hilda Pope",
   },
   {
     key: "2",
