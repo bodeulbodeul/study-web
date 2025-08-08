@@ -34,24 +34,21 @@ const experienceData = [
 
 export default function Experience() {
   return (
-    <>
-      {/* <Statistic title="총 경력" value="년" /> */}
-      <Timeline
-        mode="left"
-        items={experienceData.map((item, index) => ({
-          label: item.period,
-          color: index === 0 ? "blue" : "gray",
-          children: (
-            <ExperienceItem
-              company={item.company}
-              position={item.position}
-              role={item.role}
-              stack={item.stack}
-              achievement={item.achievement}
-            />
-          ),
-        }))}
-      />
-    </>
+    <Timeline
+      mode="left"
+      items={experienceData.map((item, index) => ({
+        label: item.period,
+        color: index === 0 ? "blue" : "gray",
+        children: (
+          <ExperienceItem
+            company={item.company}
+            position={item.position}
+            role={item.role}
+            stack={item.stack}
+            achievement={item.achievement}
+          />
+        ),
+      }))}
+    />
   );
 }
