@@ -1,6 +1,7 @@
 import { Button, Card, Col, Row } from "antd";
+import { Typography } from "antd";
 import { useEffect, useState } from "react";
-import UserInput from "./TodoLogin";
+import TodoLogin from "./TodoLogin";
 
 export default function Todo() {
   const [userId, setUserId] = useState(null);
@@ -105,25 +106,16 @@ export default function Todo() {
 
   // 사용자 입력 없이 조회 막기
   if (!userId) {
-    return (
-      <Row>
-        <Col span={24}>
-          <Row>
-            <Col span={24}>
-              <h2>사용자를 선택해주세요</h2>
-              <UserInput handleUserId={setUserId} />
-            </Col>
-          </Row>
-        </Col>
-      </Row>
-    );
+    return <TodoLogin handleUserId={setUserId} />;
   }
 
   return (
     <Row>
       <Col span={24}>
-        <Row>
-          <Col>{userId} TODO</Col>
+        <Row align="middle" justify="space-between">
+          <Col>
+            <Typography.Title level={2}>{userId}'s Todo</Typography.Title>
+          </Col>
           <Col>
             <Button onClick={() => setUserId(null)}>로그아웃</Button>
           </Col>
