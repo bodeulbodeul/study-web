@@ -1,28 +1,149 @@
-export default function Todo() {
-  /*
-    completed : false
-    id: 6
-    title: "qui ullam ratione quibusdam voluptatem quia omnis"
-    userId: 1
-  */
-  fetch("https://jsonplaceholder.typicode.com/todos?userId=1")
-    .then((response) => response.json())
-    .then((json) => console.log(json));
+import { Button, Card, Col, Row } from "antd";
+import { useEffect, useState } from "react";
+import UserInput from "./TodoLogin";
 
-  // 특정 사용자의 TODO 목록 가져오기
-  // 특정 사용자의 TODO 목록 중 완료된 것만 가져오기
-  // 특정 사용자의 TODO 목록 중 완료되지 않은 것만 가져오기
+export default function Todo() {
+  const [userId, setUserId] = useState(null);
+  const [todos, setTodos] = useState([]);
+
+  // TODO 목록 가져오기
+  useEffect(() => {
+    getData();
+  }, []);
+
+  // 사용자 선택시 해당 사용자의 TODO 목록 가져오기
+  useEffect(() => {
+    if (userId) {
+      getUserData();
+    }
+  }, [userId]);
+
+  // TODO 추가
+  const addTodo = (title) => {
+    fetch("https://jsonplaceholder.typicode.com/todos", {
+      method: "POST",
+      body: JSON.stringify({
+        userId,
+        title,
+        completed: false,
+      }),
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+      },
+    })
+      .then((response) => response.json())
+      .then((json) => setTodos((prevTodos) => [...prevTodos, json]));
+  };
 
   // TODO 목록 전체 가져오기
-  // TODO 목록 중 완료된 것만 가져오기
-  // TODO 목록 중 완료되지 않은 것만 가져오기
+  const getData = () => {
+    fetch("https://jsonplaceholder.typicode.com/todos")
+      .then((response) => response.json())
+      .then((json) => setTodos(json));
+  };
 
-  // 특정  TODO 삭제하기
-  // 특정  TODO 수정하기
+  // 특정 사용자의 TODO 목록 가져오기
+  const getUserData = () => {
+    fetch(`https://jsonplaceholder.typicode.com/users/${userId}/todos`)
+      .then((response) => response.json())
+      .then((json) => setTodos(json));
+  };
+
+  // TODO 수정하기
+  const updateTodo = (id, title, completed) => {
+    fetch(`https://jsonplaceholder.typicode.com/todos/${id}`, {
+      method: "PUT",
+      body: JSON.stringify({
+        title,
+        completed,
+      }),
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+      },
+    })
+      .then((response) => response.json())
+      .then((json) =>
+        setTodos((prevTodos) =>
+          prevTodos.map((todo) =>
+            todo.id === id
+              ? { ...todo, title: json.title, completed: json.completed }
+              : todo
+          )
+        )
+      );
+  };
+
+  // TODO 완료 상태 변경하기
+  const updateCompleted = (completed) => {
+    fetch(`https://jsonplaceholder.typicode.com/todos/${id}`, {
+      method: "PATCH",
+      body: JSON.stringify({ completed }),
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+      },
+    })
+      .then((response) => response.json())
+      .then((json) =>
+        setTodos((prevTodos) =>
+          prevTodos.map((todo) =>
+            todo.id === id ? { ...todo, completed: json.completed } : todo
+          )
+        )
+      );
+  };
+
+  // TODO 삭제하기
+  const deleteTodo = (id) => {
+    fetch(`https://jsonplaceholder.typicode.com/todos/${id}`, {
+      method: "DELETE",
+    }).then(() => {
+      setTodos((prevTodos) => prevTodos.filter((todo) => todo.id !== id));
+    });
+  };
 
   // 레이아웃 변경하기 ( 칸반 / 표 / 간단리스트 )
 
-  // 사용자 입력란 + 조회
+  // 사용자 입력 없이 조회 막기
+  if (!userId) {
+    return (
+      <Row>
+        <Col span={24}>
+          <Row>
+            <Col span={24}>
+              <h2>사용자를 선택해주세요</h2>
+              <UserInput handleUserId={setUserId} />
+            </Col>
+          </Row>
+        </Col>
+      </Row>
+    );
+  }
 
-  return null;
+  return (
+    <Row>
+      <Col span={24}>
+        <Row>
+          <Col>{userId} TODO</Col>
+          <Col>
+            <Button onClick={() => setUserId(null)}>로그아웃</Button>
+          </Col>
+        </Row>
+        <Row>
+          <Col span={24}>
+            <Card title="input"></Card>
+          </Col>
+        </Row>
+        <Row>
+          <Col span={24}>
+            <Card title="progress"></Card>
+          </Col>
+        </Row>
+        <Row>
+          <Col span={24}>
+            <Card title="list"></Card>
+          </Col>
+        </Row>
+      </Col>
+    </Row>
+  );
 }
