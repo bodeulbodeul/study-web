@@ -35,7 +35,7 @@ export default function TodoInput({ handleAddTodo }) {
       </Space.Compact>
       {status === "error" && (
         <Row justify="center" align="middle">
-          <Col span={3}>
+          <Col span={24}>
             <Alert message="할 일을 입력하세요" type="error" showIcon />
           </Col>
         </Row>

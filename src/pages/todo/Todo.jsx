@@ -1,8 +1,7 @@
-import { Button, Card, Col, Input, Row, Space } from "antd";
-import { Typography } from "antd";
+import { Button, Col, Row, Space, Typography } from "antd";
 import { useEffect, useState } from "react";
-import TodoLogin from "./TodoLogin";
 import TodoInput from "./TodoInput";
+import TodoLogin from "./TodoLogin";
 import TodoProgress from "./TodoProgress";
 import TodoTable from "./TodoTable";
 
@@ -37,7 +36,7 @@ export default function Todo() {
       },
     })
       .then((response) => response.json())
-      .then((json) => setTodos((prevTodos) => [...prevTodos, json]));
+      .then((json) => setTodos((prevTodos) => [json, ...prevTodos]));
   };
 
   // TODO 목록 전체 가져오기
@@ -55,12 +54,11 @@ export default function Todo() {
   };
 
   // TODO 수정하기
-  const updateTodo = (id, title, completed) => {
+  const updateTodo = (id, title) => {
     fetch(`https://jsonplaceholder.typicode.com/todos/${id}`, {
       method: "PUT",
       body: JSON.stringify({
         title,
-        completed,
       }),
       headers: {
         "Content-type": "application/json; charset=UTF-8",
@@ -71,7 +69,7 @@ export default function Todo() {
         setTodos((prevTodos) =>
           prevTodos.map((todo) =>
             todo.id === id
-              ? { ...todo, title: json.title, completed: json.completed }
+              ? { ...todo, title: json.title }
               : todo
           )
         )
@@ -145,6 +143,7 @@ export default function Todo() {
         <Col span={20}>
           <TodoTable
             data={todos}
+            handleUpdate={updateTodo}
             handleUpdateComplete={updateCompleted}
             handleDelete={deleteTodo}
           />
