@@ -1,4 +1,5 @@
 import { Table, Tag } from "antd";
+import { DeleteOutlined } from "@ant-design/icons";
 
 export default function TodoTable({
   data,
@@ -21,12 +22,29 @@ export default function TodoTable({
       title: "완료 여부",
       dataIndex: "completed",
       key: "completed",
-      render: (completed) => (
-        <Tag color={completed ? "green" : "red"} onClick={handleComplete}>
-          {completed ? "완료" : "미완료"}
-        </Tag>
-      ),
+      render: (_, record) => {
+        return (
+          <Tag
+            color={record.completed ? "green" : "red"}
+            onClick={() => handleComplete(record)}
+          >
+            {record.completed ? "완료" : "미완료"}
+          </Tag>
+        );
+      },
       width: 100,
+    },
+    {
+      title: "Delete",
+      key: "delete",
+      render: (_, record) => (
+        <DeleteOutlined
+          style={{ fontSize: "large" }}
+          onClick={() => handleDelete(record.id)}
+        />
+      ),
+      width: 50,
+      align: "center",
     },
   ];
 
@@ -34,5 +52,7 @@ export default function TodoTable({
     handleUpdateComplete(record.completed, record.id);
   };
 
-  return <Table columns={columns} dataSource={data} />;
+  return (
+    <Table columns={columns} dataSource={data} rowKey={(record) => record.id} />
+  );
 }

@@ -30,8 +30,8 @@ export default function UserInput({ handleUserId }) {
         </Col>
       </Row>
       <Row justify="center" align="middle">
-        <Col span={3}>
-          <Space.Compact>
+        <Col span={5}>
+          <Space.Compact style={{ width: "100%" }}>
             <Input
               placeholder={errorMessage}
               value={userId}
@@ -47,7 +47,7 @@ export default function UserInput({ handleUserId }) {
       </Row>
       <Row justify="center" align="middle">
         {status === "error" && (
-          <Col span={3}>
+          <Col span={5}>
             <Alert message={errorMessage} type="error" showIcon />
           </Col>
         )}

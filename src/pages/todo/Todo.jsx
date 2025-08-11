@@ -10,16 +10,17 @@ export default function Todo() {
   const [userId, setUserId] = useState(null);
   const [todos, setTodos] = useState([]);
 
-  // TODO 목록 가져오기
-  useEffect(() => {
-    getData();
-  }, []);
-
   // 사용자 선택시 해당 사용자의 TODO 목록 가져오기
   useEffect(() => {
-    if (userId) {
+    if (userId === "admin") {
+      getData();
+    } else if (userId && userId !== "admin") {
       getUserData();
     }
+    // 초기 로드 시 모든 TODO 목록을 가져오지 않도록 함
+    return () => {
+      setTodos([]);
+    };
   }, [userId]);
 
   // TODO 추가
@@ -81,7 +82,7 @@ export default function Todo() {
   const updateCompleted = (completed, id) => {
     fetch(`https://jsonplaceholder.typicode.com/todos/${id}`, {
       method: "PATCH",
-      body: JSON.stringify({ completed }),
+      body: JSON.stringify({ completed: !completed }),
       headers: {
         "Content-type": "application/json; charset=UTF-8",
       },
@@ -105,6 +106,10 @@ export default function Todo() {
     });
   };
 
+  const handleLogout = () => {
+    setUserId(null);
+    setTodos([]);
+  };
   // 레이아웃 변경하기 ( 칸반 / 표 / 간단리스트 )
 
   // 사용자 입력 없이 조회 막기
@@ -121,18 +126,14 @@ export default function Todo() {
               <Typography.Title level={2}>{userId}'s Todo</Typography.Title>
             </Col>
             <Col>
-              <Button onClick={() => setUserId(null)}>로그아웃</Button>
+              <Button onClick={handleLogout}>로그아웃</Button>
             </Col>
           </Row>
         </Col>
       </Row>
       <Row align="middle" justify="center">
         <Col span={20}>
-          <TodoInput
-            handleAddTodo={addTodo}
-            handleUpdateComplete={updateCompleted}
-            handleDelete={deleteTodo}
-          />
+          <TodoInput handleAddTodo={addTodo} />
         </Col>
       </Row>
       <Row align="middle" justify="center">
@@ -142,7 +143,11 @@ export default function Todo() {
       </Row>
       <Row align="middle" justify="center">
         <Col span={20}>
-          <TodoTable data={todos} />
+          <TodoTable
+            data={todos}
+            handleUpdateComplete={updateCompleted}
+            handleDelete={deleteTodo}
+          />
         </Col>
       </Row>
     </Space>
