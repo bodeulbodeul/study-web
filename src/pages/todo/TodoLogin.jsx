@@ -1,6 +1,8 @@
 import { Alert, Button, Col, Input, Row, Space, Typography } from "antd";
 import { useState } from "react";
 
+const errorMessage = "사용자 ID를 입력해주세요.";
+
 export default function UserInput({ handleUserId }) {
   const [userId, setUserId] = useState(null);
   const [status, setStatus] = useState("");
@@ -15,6 +17,11 @@ export default function UserInput({ handleUserId }) {
     }
   };
 
+  const handleChange = (e) => {
+    setUserId(e.target.value);
+    setStatus("");
+  };
+
   return (
     <>
       <Row justify="center" align="middle">
@@ -26,10 +33,10 @@ export default function UserInput({ handleUserId }) {
         <Col span={3}>
           <Space.Compact>
             <Input
-              placeholder="사용자 ID를 입력하세요"
+              placeholder={errorMessage}
               value={userId}
               status={status}
-              onChange={(e) => (setUserId(e.target.value), setStatus(""))}
+              onChange={handleChange}
               onPressEnter={onLoginClick}
             />
             <Button type="primary" onClick={onLoginClick}>
@@ -41,7 +48,7 @@ export default function UserInput({ handleUserId }) {
       <Row justify="center" align="middle">
         {status === "error" && (
           <Col span={3}>
-            <Alert message="사용자 ID를 입력해주세요." type="error" showIcon />
+            <Alert message={errorMessage} type="error" showIcon />
           </Col>
         )}
       </Row>

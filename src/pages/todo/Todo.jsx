@@ -1,7 +1,10 @@
-import { Button, Card, Col, Row } from "antd";
+import { Button, Card, Col, Input, Row, Space } from "antd";
 import { Typography } from "antd";
 import { useEffect, useState } from "react";
 import TodoLogin from "./TodoLogin";
+import TodoInput from "./TodoInput";
+import TodoProgress from "./TodoProgress";
+import TodoTable from "./TodoTable";
 
 export default function Todo() {
   const [userId, setUserId] = useState(null);
@@ -75,7 +78,7 @@ export default function Todo() {
   };
 
   // TODO 완료 상태 변경하기
-  const updateCompleted = (completed) => {
+  const updateCompleted = (completed, id) => {
     fetch(`https://jsonplaceholder.typicode.com/todos/${id}`, {
       method: "PATCH",
       body: JSON.stringify({ completed }),
@@ -110,32 +113,38 @@ export default function Todo() {
   }
 
   return (
-    <Row>
-      <Col span={24}>
-        <Row align="middle" justify="space-between">
-          <Col>
-            <Typography.Title level={2}>{userId}'s Todo</Typography.Title>
-          </Col>
-          <Col>
-            <Button onClick={() => setUserId(null)}>로그아웃</Button>
-          </Col>
-        </Row>
-        <Row>
-          <Col span={24}>
-            <Card title="input"></Card>
-          </Col>
-        </Row>
-        <Row>
-          <Col span={24}>
-            <Card title="progress"></Card>
-          </Col>
-        </Row>
-        <Row>
-          <Col span={24}>
-            <Card title="list"></Card>
-          </Col>
-        </Row>
-      </Col>
-    </Row>
+    <Space direction="vertical" size="middle" style={{ display: "flex" }}>
+      <Row align="middle" justify="center">
+        <Col span={20}>
+          <Row align="middle" justify="space-between">
+            <Col>
+              <Typography.Title level={2}>{userId}'s Todo</Typography.Title>
+            </Col>
+            <Col>
+              <Button onClick={() => setUserId(null)}>로그아웃</Button>
+            </Col>
+          </Row>
+        </Col>
+      </Row>
+      <Row align="middle" justify="center">
+        <Col span={20}>
+          <TodoInput
+            handleAddTodo={addTodo}
+            handleUpdateComplete={updateCompleted}
+            handleDelete={deleteTodo}
+          />
+        </Col>
+      </Row>
+      <Row align="middle" justify="center">
+        <Col span={20}>
+          <TodoProgress todos={todos} />
+        </Col>
+      </Row>
+      <Row align="middle" justify="center">
+        <Col span={20}>
+          <TodoTable data={todos} />
+        </Col>
+      </Row>
+    </Space>
   );
 }
