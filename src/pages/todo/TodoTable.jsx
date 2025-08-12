@@ -1,26 +1,26 @@
-import { DeleteOutlined, CheckOutlined, BorderOutlined } from "@ant-design/icons";
-import { Button, Input, Table, Tag, Typography } from "antd";
+import { CheckOutlined, DeleteOutlined } from "@ant-design/icons";
+import { Button, Input, Table, Typography } from "antd";
 import { useState } from "react";
 
 export default function TodoTable({
   data,
+  loading,
   handleUpdate,
   handleUpdateComplete,
   handleDelete,
 }) {
-
   const [editingId, setEditingId] = useState("");
   const [tempValue, setTempValue] = useState("");
 
   const handleUpdateTitle = () => {
-    handleUpdate(editingId, tempValue)
-    handleEditReset()
-  }
+    handleUpdate(editingId, tempValue);
+    handleEditReset();
+  };
 
   const handleEditReset = () => {
-    setEditingId(null)
-    setTempValue(null)
-  }
+    setEditingId(null);
+    setTempValue(null);
+  };
 
   const handleComplete = (record) => {
     handleUpdateComplete(record.completed, record.id);
@@ -38,42 +38,51 @@ export default function TodoTable({
       key: "completed",
       render: (_, record) => {
         return (
-          <Button size="large" style={{ color: record.completed ? "green" : "red" }}
-            shape="circle" icon={record.completed ? <CheckOutlined /> : " "}
+          <Button
+            size="large"
+            style={{ color: record.completed ? "green" : "" }}
+            shape="circle"
+            icon={record.completed ? <CheckOutlined /> : " "}
             onClick={() => handleComplete(record)}
           />
         );
       },
       filters: [
         {
-          text: '완료',
+          text: "완료",
           value: true,
         },
         {
-          text: '미완료',
+          text: "미완료",
           value: false,
         },
       ],
       onFilter: (value, record) => record.completed === value,
       width: 110,
-      align: 'center'
+      align: "center",
     },
     {
       title: "할 일",
       dataIndex: "title",
       key: "title",
       render: (title, record) => {
-        return editingId === record.id ?
+        return editingId === record.id && !record.completed ? (
           <Input
             value={tempValue}
             onChange={(e) => setTempValue(e.target.value)}
             onPressEnter={handleUpdateTitle}
-            onBlur={handleEditReset}
+            onBlur={handleUpdateTitle}
             autoFocus
           />
-          : <Typography.Text delete={record.completed} onClick={() => editCell(record)}>{title}</Typography.Text>
+        ) : (
+          <Typography.Text
+            delete={record.completed}
+            onClick={() => editCell(record)}
+          >
+            {title}
+          </Typography.Text>
+        );
       },
-
     },
     {
       title: "Delete",
@@ -89,8 +98,12 @@ export default function TodoTable({
     },
   ];
 
-
   return (
-    <Table columns={columns} dataSource={data} rowKey={(record) => record.id} />
+    <Table
+      columns={columns}
+      dataSource={data}
+      rowKey={(record) => record.id}
+      loading={loading}
+    />
   );
 }

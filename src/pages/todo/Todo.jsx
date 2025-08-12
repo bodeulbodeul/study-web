@@ -1,114 +1,17 @@
 import { Button, Col, Row, Space, Typography } from "antd";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import TodoInput from "./TodoInput";
 import TodoLogin from "./TodoLogin";
 import TodoProgress from "./TodoProgress";
 import TodoTable from "./TodoTable";
+import useTodos from "./useTodos";
 
 export default function Todo() {
   const [userId, setUserId] = useState(null);
-  const [todos, setTodos] = useState([]);
+  const { todos, loading, addTodo, updateTodo, updateCompleted, deleteTodo } =
+    useTodos(userId);
 
-  // 사용자 선택시 해당 사용자의 TODO 목록 가져오기
-  useEffect(() => {
-    if (userId === "admin") {
-      getData();
-    } else if (userId && userId !== "admin") {
-      getUserData();
-    }
-    // 초기 로드 시 모든 TODO 목록을 가져오지 않도록 함
-    return () => {
-      setTodos([]);
-    };
-  }, [userId]);
-
-  // TODO 추가
-  const addTodo = (title) => {
-    fetch("https://jsonplaceholder.typicode.com/todos", {
-      method: "POST",
-      body: JSON.stringify({
-        userId,
-        title,
-        completed: false,
-      }),
-      headers: {
-        "Content-type": "application/json; charset=UTF-8",
-      },
-    })
-      .then((response) => response.json())
-      .then((json) => setTodos((prevTodos) => [json, ...prevTodos]));
-  };
-
-  // TODO 목록 전체 가져오기
-  const getData = () => {
-    fetch("https://jsonplaceholder.typicode.com/todos")
-      .then((response) => response.json())
-      .then((json) => setTodos(json));
-  };
-
-  // 특정 사용자의 TODO 목록 가져오기
-  const getUserData = () => {
-    fetch(`https://jsonplaceholder.typicode.com/users/${userId}/todos`)
-      .then((response) => response.json())
-      .then((json) => setTodos(json));
-  };
-
-  // TODO 수정하기
-  const updateTodo = (id, title) => {
-    fetch(`https://jsonplaceholder.typicode.com/todos/${id}`, {
-      method: "PUT",
-      body: JSON.stringify({
-        title,
-      }),
-      headers: {
-        "Content-type": "application/json; charset=UTF-8",
-      },
-    })
-      .then((response) => response.json())
-      .then((json) =>
-        setTodos((prevTodos) =>
-          prevTodos.map((todo) =>
-            todo.id === id
-              ? { ...todo, title: json.title }
-              : todo
-          )
-        )
-      );
-  };
-
-  // TODO 완료 상태 변경하기
-  const updateCompleted = (completed, id) => {
-    fetch(`https://jsonplaceholder.typicode.com/todos/${id}`, {
-      method: "PATCH",
-      body: JSON.stringify({ completed: !completed }),
-      headers: {
-        "Content-type": "application/json; charset=UTF-8",
-      },
-    })
-      .then((response) => response.json())
-      .then((json) =>
-        setTodos((prevTodos) =>
-          prevTodos.map((todo) =>
-            todo.id === id ? { ...todo, completed: json.completed } : todo
-          )
-        )
-      );
-  };
-
-  // TODO 삭제하기
-  const deleteTodo = (id) => {
-    fetch(`https://jsonplaceholder.typicode.com/todos/${id}`, {
-      method: "DELETE",
-    }).then(() => {
-      setTodos((prevTodos) => prevTodos.filter((todo) => todo.id !== id));
-    });
-  };
-
-  const handleLogout = () => {
-    setUserId(null);
-    setTodos([]);
-  };
-  // 레이아웃 변경하기 ( 칸반 / 표 / 간단리스트 )
+  const handleLogout = () => setUserId(null);
 
   // 사용자 입력 없이 조회 막기
   if (!userId) {
@@ -143,6 +46,7 @@ export default function Todo() {
         <Col span={20}>
           <TodoTable
             data={todos}
+            loading={loading}
             handleUpdate={updateTodo}
             handleUpdateComplete={updateCompleted}
             handleDelete={deleteTodo}
