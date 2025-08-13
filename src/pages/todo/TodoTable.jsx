@@ -1,4 +1,4 @@
-import { CheckOutlined, DeleteOutlined } from "@ant-design/icons";
+import { CheckCircleFilled, CloseOutlined } from "@ant-design/icons";
 import { Button, Input, Table, Typography } from "antd";
 import { useState } from "react";
 
@@ -40,9 +40,16 @@ export default function TodoTable({
         return (
           <Button
             size="large"
-            style={{ color: record.completed ? "green" : "" }}
             shape="circle"
-            icon={record.completed ? <CheckOutlined /> : " "}
+            icon={
+              record.completed ? (
+                <CheckCircleFilled
+                  style={{ fontSize: "2.4rem", color: "#52c41a" }}
+                />
+              ) : (
+                " "
+              )
+            }
             onClick={() => handleComplete(record)}
           />
         );
@@ -88,7 +95,7 @@ export default function TodoTable({
       title: "Delete",
       key: "delete",
       render: (_, record) => (
-        <DeleteOutlined
+        <CloseOutlined
           style={{ fontSize: "large" }}
           onClick={() => handleDelete(record.id)}
         />

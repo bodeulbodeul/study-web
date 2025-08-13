@@ -1,4 +1,4 @@
-import { Progress } from "antd";
+import { Avatar, Badge, Card, Col, Progress, Row, Typography } from "antd";
 
 const colors = {
   "0%": "#ff6b6b", // 0% - 파스텔 레드
@@ -19,6 +19,43 @@ export default function TodoProgress({ todos }) {
     : 0;
 
   return (
-    <Progress percent={completionRate} status="active" strokeColor={colors} />
+    <Card title="진행 상황" style={{ width: "100%" }}>
+      <Row gutter={20}>
+        <Col>
+          <Row gutter={10}>
+            <Col>
+              <Typography.Text>전체</Typography.Text>
+            </Col>
+            <Col>
+              <Badge count={totalCount} color="gray" />
+            </Col>
+          </Row>
+        </Col>
+        <Col>
+          <Row gutter={10}>
+            <Col>
+              <Typography.Text>완료</Typography.Text>
+            </Col>
+            <Col>
+              <Badge count={completedCount} color="green" />
+            </Col>
+          </Row>
+        </Col>
+        <Col>
+          <Row gutter={10}>
+            <Col>
+              <Typography.Text>미완료</Typography.Text>
+            </Col>
+            <Col>
+              <Badge count={totalCount - completedCount} />
+            </Col>
+          </Row>
+        </Col>
+      </Row>
+      <Row>
+        <Col span={24}></Col>
+      </Row>
+      <Progress percent={completionRate} status="active" strokeColor={colors} />
+    </Card>
   );
 }
