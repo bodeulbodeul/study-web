@@ -29,10 +29,10 @@ function App() {
       </Header>
       <Content style={{ padding: "1rem" }}>
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/about" element={<About />} />
+          <Route index element={<Home />} />
+          <Route path="about" element={<About />} />
           {/* <Route path="/work" element={<Work />} /> */}
-          <Route path="/todo" element={<Todo />} />
+          <Route path="todo" element={<Todo />} />
         </Routes>
       </Content>
       <Footer></Footer>
